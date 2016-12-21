@@ -23,6 +23,9 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public void Save(Item item) {
 
+        if(DummyData.items.contains(item)){
+            DummyData.items.remove(item.getId());
+        }
         DummyData.items.add(item);
     }
 

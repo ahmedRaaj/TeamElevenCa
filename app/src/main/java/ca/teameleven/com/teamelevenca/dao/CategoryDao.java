@@ -11,7 +11,7 @@ import ca.teameleven.com.teamelevenca.util.JSONParser;
 
 public interface CategoryDao {
     JSONParser parser = new JSONParser();
-    String URL = "http://10.10.24.172/WCFT11_CA/service1.svc";
+    String URL = "http://10.10.2.214/WCFT11_CA/service1.svc";
     public Category getCategory(int id);
     public List<Category> getAllCategories();
     public void Save(Category cat);

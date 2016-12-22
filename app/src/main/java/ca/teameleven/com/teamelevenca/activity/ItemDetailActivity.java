@@ -16,8 +16,8 @@ import ca.teameleven.com.teamelevenca.dao.ItemDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Item;
 
 public class ItemDetailActivity extends AppCompatActivity {
-   // ItemDao itemDao = new ItemDaoImpl();
-    ItemDao itemDao = new ItemDaoImplJson();
+    ItemDao itemDao ;
+
 
     Item item;
 
@@ -36,12 +36,12 @@ public class ItemDetailActivity extends AppCompatActivity {
              mModifyButton = (Button) findViewById(R.id.btn_detail_modify);
              mDeleteButton = (Button) findViewById(R.id.btn_detail_delete);
              String itemId = intent.getStringExtra("itemId");
-            item =  itemDao.getItem(Integer.parseInt(itemId));
             //Toast.makeText(ItemDetailActivity.this,"id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_LONG).show();
 
             new AsyncTask<String, Void, Item>() {
                 @Override
                 protected Item doInBackground(String... params) {
+                    itemDao = new ItemDaoImplJson();
                     String itemId = params[0];
                     item =  itemDao.getItem(Integer.parseInt(itemId));
                     return  item;

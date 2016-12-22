@@ -18,9 +18,9 @@ public class ItemDaoImplJson implements ItemDao {
 
     @Override
     public Item getItem(int id) {
-       // Item i = new Item();
+       // Item item = new Item();
         String id_str=String.valueOf(id);
-        JSONObject itemJ=JSONParser.getJSONFromUrl(URL+"/GetItemsListbyId/"+id_str);
+        JSONObject itemJ=JSONParser.getJSONFromUrl(URL+"/GetItemsListbyId/"+id);
         try {
             Item item = getFromJson(itemJ.getString("CategoryId"),itemJ.getString("Id"), itemJ.getString("Name"),itemJ.getString("ItemsDetail"),itemJ.getString("Price"));
             return item ;

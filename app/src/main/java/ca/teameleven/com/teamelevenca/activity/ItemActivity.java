@@ -27,8 +27,7 @@ import ca.teameleven.com.teamelevenca.util.DummyData;
 
 public class ItemActivity extends AppCompatActivity {
     ListView mItemsListView;
-    //ItemDao itemDao = new ItemDaoImpl();
-    ItemDao itemDao = new ItemDaoImplJson();
+    ItemDao itemDao ;
     public static String ITEMID;
 
     @Override
@@ -47,6 +46,7 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             protected List<Item> doInBackground(String... params) {
                String catId = params[0];
+                itemDao = new ItemDaoImplJson();
 
                 return itemDao.getAllItems(Integer.parseInt(catId));
             }
@@ -59,11 +59,10 @@ public class ItemActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         TextView idTv = (TextView)view.findViewById(R.id.tv_itemIdHidden);
                         int itemId = Integer.parseInt(idTv.getText().toString());
-                        Item item = itemDao.getItem(itemId);
-                        // Toast.makeText(ItemActivity.this,"Before id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_SHORT).show();
+                    //     Toast.makeText(ItemActivity.this,"Before id: "+itemId , Toast.LENGTH_SHORT).show();
 
                         Intent detailsIntent = new Intent(ItemActivity.this,ItemDetailActivity.class);
-                        detailsIntent.putExtra("itemId",String.valueOf(item.getId()));
+                        detailsIntent.putExtra("itemId",String.valueOf(itemId));
                         startActivity(detailsIntent);
                     }
                 });

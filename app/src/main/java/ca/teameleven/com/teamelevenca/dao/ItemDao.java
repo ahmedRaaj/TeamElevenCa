@@ -11,7 +11,7 @@ import ca.teameleven.com.teamelevenca.util.JSONParser;
 
 public interface ItemDao {
     JSONParser parser = new JSONParser();
-    String URL = "http://10.10.24.172/WCFT11_CA/service1.svc";
+    String URL = "http://10.10.2.214/WCFT11_CA/service1.svc";
     public Item getItem(int id);
     public List<Item> getAllItems();
     public void Save(Item item);

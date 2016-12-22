@@ -4,13 +4,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".activity.CategoryActivity"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/background_light"
+        android:textStyle="normal|bold"
+        android:text="Categories"
+        android:textAllCaps="true"
+        android:gravity="center"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_category">
+        android:id="@+id/lv_category"
+        android:cacheColorHint="@android:color/background_light"
+        tools:fadingEdge="horizontal"
+        android:fadingEdgeLength="20dp"
+        android:fadeScrollbars="false"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
+        >
 
     </ListView>
 

@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.ItemActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/background_light"
+        android:textStyle="normal|bold"
+        android:text="Items"
+        android:textAllCaps="true"
+        android:gravity="center"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_item">
+        android:id="@+id/lv_item"
+        android:divider="@android:color/black"
+        android:dividerHeight="1dp"
+        android:cacheColorHint="@android:color/background_light"
+        tools:fadingEdge="horizontal"
+        android:fadingEdgeLength="20dp"
+        android:fadeScrollbars="false"
+        >
 
     </ListView>
 </LinearLayout>

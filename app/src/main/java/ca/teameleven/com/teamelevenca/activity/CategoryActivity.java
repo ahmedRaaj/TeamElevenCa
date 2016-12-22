@@ -1,6 +1,7 @@
 package ca.teameleven.com.teamelevenca.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,19 +29,29 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         mCategoryListView = (ListView) findViewById(R.id.lv_category);
-        mCategoryListView.setAdapter(new CategoryAdapter(this,R.layout.row_category, DummyData.categories));
-     //   mCategoryListView.setAdapter(new ArrayAdapter<>(this,R.layout.row_category,R.id.tv_category,DummyData.categories));
 
-        mCategoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        new AsyncTask<Void, Void, List<Category>>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Category category = (Category) parent.getAdapter().getItem(position);
-                Intent intent = new Intent(CategoryActivity.this,ItemActivity.class);
-                intent.putExtra(CATEGORYID,String.valueOf(category.getcategoryId()));
-                startActivity(intent);
-                //Toast.makeText(CategoryActivity.this,category.getCategoryName(),Toast.LENGTH_LONG).show();
+            protected List<Category> doInBackground(Void... params) {
+                return DummyData.categories;
             }
-        });
+
+            @Override
+            protected void onPostExecute(List<Category> categories) {
+                mCategoryListView.setAdapter(new CategoryAdapter(CategoryActivity.this,R.layout.row_category, categories));
+                mCategoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Category category = (Category) parent.getAdapter().getItem(position);
+                        Intent intent = new Intent(CategoryActivity.this,ItemActivity.class);
+                        intent.putExtra(CATEGORYID,String.valueOf(category.getcategoryId()));
+                        startActivity(intent);
+                        //Toast.makeText(CategoryActivity.this,category.getCategoryName(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        }.execute();
 
 
     }

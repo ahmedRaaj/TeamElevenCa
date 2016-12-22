@@ -1,5 +1,6 @@
 package ca.teameleven.com.teamelevenca.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.teameleven.com.teamelevenca.model.Item;
@@ -10,14 +11,18 @@ import ca.teameleven.com.teamelevenca.util.JSONParser;
  */
 public class ItemDaoImplJson implements ItemDao {
     JSONParser parser = new JSONParser();
-    String URL = null;
+    String URL = "http://10.10.24.172/WCFT11_CA/service1.svc";
     @Override
     public Item getItem(int id) {
-        return null;
+        Item i = new Item();
+       return null;
     }
 
     @Override
     public List<Item> getAllItems() {
+        List<Item> list = new ArrayList<>();
+
+
         return null;
     }
 

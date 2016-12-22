@@ -1,6 +1,7 @@
 package ca.teameleven.com.teamelevenca.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,21 +33,38 @@ public class ItemDetailActivity extends AppCompatActivity {
              mModifyButton = (Button) findViewById(R.id.btn_detail_modify);
              mDeleteButton = (Button) findViewById(R.id.btn_detail_delete);
              String itemId = intent.getStringExtra("itemId");
-             item = itemDao.getItem(Integer.parseInt(itemId));
+            item =  itemDao.getItem(Integer.parseInt(itemId));
             //Toast.makeText(ItemDetailActivity.this,"id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_LONG).show();
-             mItemDetailsEditText.setText(item.getItemDesc());
-             mItemNameEditText.setText(item.getItemName());
-             mItemPriceEditText.setText(String.valueOf(item.getPrice()));
 
-             mModifyButton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     item.setItemName(mItemNameEditText.getText().toString());
-                     item.setItemDesc(mItemDetailsEditText.getText().toString());
-                     item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
-                     itemDao.Save(item);
-                 }
-             });
+            new AsyncTask<String, Void, Item>() {
+                @Override
+                protected Item doInBackground(String... params) {
+                    String itemId = params[0];
+                    item =  itemDao.getItem(Integer.parseInt(itemId));
+                    return  item;
+                }
+
+                @Override
+                protected void onPostExecute(Item i) {
+                    mItemDetailsEditText.setText(i.getItemDesc());
+                    mItemNameEditText.setText(i.getItemName());
+                    mItemPriceEditText.setText(String.valueOf(i.getPrice()));
+
+                    mModifyButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            item.setItemName(mItemNameEditText.getText().toString());
+                            item.setItemDesc(mItemDetailsEditText.getText().toString());
+                            item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
+                            itemDao.Save(item);
+                        }
+                    });
+                }
+            }.execute(itemId);
+
         }
+
+
+
     }
 }

@@ -19,6 +19,8 @@ public class Item {
         this.categoryId = categoryId;
     }
 
+    public Item(){}
+
     public int getId() {
         return id;
 

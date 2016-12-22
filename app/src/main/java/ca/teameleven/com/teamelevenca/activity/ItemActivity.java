@@ -1,6 +1,7 @@
 package ca.teameleven.com.teamelevenca.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.adapters.ItemAdapter;
@@ -34,20 +37,38 @@ public class ItemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String catId = intent.getStringExtra(CategoryActivity.CATEGORYID);
        // Toast.makeText(this,catId,Toast.LENGTH_LONG).show();
-        mItemsListView.setAdapter(new ItemAdapter(this,R.layout.row_item, itemDao.getAllItems(Integer.parseInt(catId))));
 
-        mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+        new AsyncTask<String,Void,List<Item>>(){
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView idTv = (TextView)view.findViewById(R.id.tv_itemIdHidden);
-                int itemId = Integer.parseInt(idTv.getText().toString());
-                Item item = itemDao.getItem(itemId);
-               // Toast.makeText(ItemActivity.this,"Before id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_SHORT).show();
+            protected List<Item> doInBackground(String... params) {
+               String catId = params[0];
 
-                Intent detailsIntent = new Intent(ItemActivity.this,ItemDetailActivity.class);
-                detailsIntent.putExtra("itemId",String.valueOf(item.getId()));
-                startActivity(detailsIntent);
+                return itemDao.getAllItems(Integer.parseInt(catId));
             }
-        });
+
+            @Override
+            protected void onPostExecute(List<Item> items) {
+                mItemsListView.setAdapter(new ItemAdapter(ItemActivity.this,R.layout.row_item,items));
+                mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        TextView idTv = (TextView)view.findViewById(R.id.tv_itemIdHidden);
+                        int itemId = Integer.parseInt(idTv.getText().toString());
+                        Item item = itemDao.getItem(itemId);
+                        // Toast.makeText(ItemActivity.this,"Before id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_SHORT).show();
+
+                        Intent detailsIntent = new Intent(ItemActivity.this,ItemDetailActivity.class);
+                        detailsIntent.putExtra("itemId",String.valueOf(item.getId()));
+                        startActivity(detailsIntent);
+                    }
+                });
+
+            }
+        }.execute(catId);
+
+
     }
 }

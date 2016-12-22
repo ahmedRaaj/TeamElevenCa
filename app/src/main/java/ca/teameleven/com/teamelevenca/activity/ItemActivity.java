@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ca.teameleven.com.teamelevenca.R;
@@ -38,9 +39,13 @@ public class ItemActivity extends AppCompatActivity {
         mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Item item = (Item) parent.getAdapter().getItem(position);
+                TextView idTv = (TextView)view.findViewById(R.id.tv_itemIdHidden);
+                int itemId = Integer.parseInt(idTv.getText().toString());
+                Item item = itemDao.getItem(itemId);
+               // Toast.makeText(ItemActivity.this,"Before id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_SHORT).show();
+
                 Intent detailsIntent = new Intent(ItemActivity.this,ItemDetailActivity.class);
-                detailsIntent.putExtra(ITEMID,String.valueOf(item.getId()));
+                detailsIntent.putExtra("itemId",String.valueOf(item.getId()));
                 startActivity(detailsIntent);
             }
         });

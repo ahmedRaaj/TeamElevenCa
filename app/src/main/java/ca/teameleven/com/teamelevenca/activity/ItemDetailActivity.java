@@ -31,8 +31,9 @@ public class ItemDetailActivity extends AppCompatActivity {
              mItemPriceEditText = (EditText) findViewById(R.id.et_detail_price);
              mModifyButton = (Button) findViewById(R.id.btn_detail_modify);
              mDeleteButton = (Button) findViewById(R.id.btn_detail_delete);
-             String itemId = intent.getStringExtra(ItemActivity.ITEMID);
+             String itemId = intent.getStringExtra("itemId");
              item = itemDao.getItem(Integer.parseInt(itemId));
+            //Toast.makeText(ItemDetailActivity.this,"id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_LONG).show();
              mItemDetailsEditText.setText(item.getItemDesc());
              mItemNameEditText.setText(item.getItemName());
              mItemPriceEditText.setText(String.valueOf(item.getPrice()));
@@ -40,10 +41,10 @@ public class ItemDetailActivity extends AppCompatActivity {
              mModifyButton.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
-//                     item.setItemName(mItemNameEditText.getText().toString());
-//                     item.setItemDesc(mItemDetailsEditText.getText().toString());
-//                     item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
-//                     itemDao.Save(item);
+                     item.setItemName(mItemNameEditText.getText().toString());
+                     item.setItemDesc(mItemDetailsEditText.getText().toString());
+                     item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
+                     itemDao.Save(item);
                  }
              });
         }

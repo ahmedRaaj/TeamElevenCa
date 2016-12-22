@@ -38,9 +38,16 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         View view = inflater.inflate(resource, null);
         Item item = items.get(position);
         if(item != null){
-            TextView mCategoryNameTV = (TextView) view.findViewById(R.id.tv_item);
-            mCategoryNameTV.setText(item.getItemName());
+            TextView mItemNameTv = (TextView) view.findViewById(R.id.tv_item);
+            mItemNameTv.setText(item.getItemName());
+            TextView mItemIdTv = (TextView) view.findViewById(R.id.tv_itemIdHidden);
+           mItemIdTv.setText(String.valueOf(item.getId()));
+
         }
         return view;
+    }
+
+    public Item getItem(int index){
+        return items.get(index);
     }
 }

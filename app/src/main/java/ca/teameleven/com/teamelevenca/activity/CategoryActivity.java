@@ -1,5 +1,6 @@
 package ca.teameleven.com.teamelevenca.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +27,7 @@ import ca.teameleven.com.teamelevenca.dao.CategoryDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Category;
 import ca.teameleven.com.teamelevenca.util.DummyData;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends Activity {
     public static String CATEGORYID;
     CategoryDao categoryDao = new CategoryDaoImplJson();
 
@@ -60,4 +64,16 @@ public class CategoryActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
 }

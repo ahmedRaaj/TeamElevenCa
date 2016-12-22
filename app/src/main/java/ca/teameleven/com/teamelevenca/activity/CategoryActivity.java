@@ -17,11 +17,15 @@ import java.util.List;
 
 import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.adapters.CategoryAdapter;
+import ca.teameleven.com.teamelevenca.dao.CategoryDao;
+import ca.teameleven.com.teamelevenca.dao.CategoryDaoImpl;
+import ca.teameleven.com.teamelevenca.dao.CategoryDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Category;
 import ca.teameleven.com.teamelevenca.util.DummyData;
 
 public class CategoryActivity extends AppCompatActivity {
     public static String CATEGORYID;
+    CategoryDao categoryDao = new CategoryDaoImplJson();
 
     ListView mCategoryListView;
     @Override
@@ -33,7 +37,7 @@ public class CategoryActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, List<Category>>() {
             @Override
             protected List<Category> doInBackground(Void... params) {
-                return DummyData.categories;
+                return categoryDao.getAllCategories();
             }
 
             @Override

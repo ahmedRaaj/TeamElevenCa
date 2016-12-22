@@ -17,6 +17,7 @@ import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.adapters.ItemAdapter;
 import ca.teameleven.com.teamelevenca.dao.ItemDao;
 import ca.teameleven.com.teamelevenca.dao.ItemDaoImpl;
+import ca.teameleven.com.teamelevenca.dao.ItemDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Item;
 import ca.teameleven.com.teamelevenca.util.DummyData;
 
@@ -26,7 +27,8 @@ import ca.teameleven.com.teamelevenca.util.DummyData;
 
 public class ItemActivity extends AppCompatActivity {
     ListView mItemsListView;
-    ItemDao itemDao = new ItemDaoImpl();
+    //ItemDao itemDao = new ItemDaoImpl();
+    ItemDao itemDao = new ItemDaoImplJson();
     public static String ITEMID;
 
     @Override

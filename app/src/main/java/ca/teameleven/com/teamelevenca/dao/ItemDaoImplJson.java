@@ -18,8 +18,16 @@ public class ItemDaoImplJson implements ItemDao {
 
     @Override
     public Item getItem(int id) {
-        Item i = new Item();
-       return i;
+       // Item i = new Item();
+        String id_str=String.valueOf(id);
+        JSONObject itemJ=JSONParser.getJSONFromUrl(URL+"/GetItemsListbyId/"+id_str);
+        try {
+            Item item = getFromJson(itemJ.getString("CategoryId"),itemJ.getString("Id"), itemJ.getString("Name"),itemJ.getString("ItemsDetail"),itemJ.getString("Price"));
+            return item ;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+       return null;
     }
 
     @Override
@@ -55,8 +63,23 @@ public class ItemDaoImplJson implements ItemDao {
 
     @Override
     public List<Item> getAllItems(int categoryId) {
-        return  this.getAllItems();
-       // return null;
+
+        List<Item> list = new ArrayList<>();
+        String id= String.valueOf(categoryId);
+        JSONArray itemListJson = JSONParser.getJSONArrayFromUrl(URL + "/GetbyCategory/"+id);
+        try {
+            for(int i = 0; i < itemListJson.length();i++){
+                JSONObject itemJ = itemListJson.getJSONObject(i);
+
+                Item item = getFromJson(itemJ.getString("CategoryId"),itemJ.getString("Id"), itemJ.getString("Name"),itemJ.getString("ItemsDetail"),itemJ.getString("Price"));
+                list.add(item);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+
     }
     
     

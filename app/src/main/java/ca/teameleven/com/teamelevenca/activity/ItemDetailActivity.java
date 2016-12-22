@@ -12,10 +12,13 @@ import android.widget.Toast;
 import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.dao.ItemDao;
 import ca.teameleven.com.teamelevenca.dao.ItemDaoImpl;
+import ca.teameleven.com.teamelevenca.dao.ItemDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Item;
 
 public class ItemDetailActivity extends AppCompatActivity {
-    ItemDao itemDao = new ItemDaoImpl();
+   // ItemDao itemDao = new ItemDaoImpl();
+    ItemDao itemDao = new ItemDaoImplJson();
+
     Item item;
 
     EditText mItemNameEditText,mItemDetailsEditText,mItemPriceEditText;

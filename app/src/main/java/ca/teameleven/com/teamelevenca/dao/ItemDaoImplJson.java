@@ -77,6 +77,7 @@ public class ItemDaoImplJson implements ItemDao {
 
     @Override
     public void Delete(int id) {
+       // JSONParser.
 
     }
 

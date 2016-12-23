@@ -44,7 +44,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             new AsyncTask<String, Void, Item>() {
                 @Override
                 protected Item doInBackground(String... params) {
-                 ItemDaoImplJson   itemDao = new ItemDaoImplJson();
+                 ItemDao   itemDao = new ItemDaoImplJson();
                     String itemId = params[0];
                     item =  itemDao.getItem(Integer.parseInt(itemId));
                     return  item;
@@ -64,8 +64,41 @@ public class ItemDetailActivity extends AppCompatActivity {
                             item.setItemDesc(mItemDetailsEditText.getText().toString());
                             item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
                             item.setId(Integer.parseInt(mItemIdET.getText().toString()));
-                         //  itemDao.Save(item);
-                            finish();
+
+                            new AsyncTask<Void,Void,Void>(){
+
+                                @Override
+                                protected Void doInBackground(Void... params) {
+                                 //  itemDao.Save(item);
+                                  //  Toast.makeText(ItemDetailActivity.this,"DD",Toast.LENGTH_LONG).show();
+                                    return null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void aVoid) {
+                                    finish();
+                                }
+                            }.execute(); //for updating item
+                        }
+                    });
+
+                    mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ItemDetailActivity.this,item.getId() + "", Toast.LENGTH_LONG).show();
+                            new AsyncTask<Void,Void,Void>(){
+
+                                @Override
+                                protected Void doInBackground(Void... params) {
+                                  //  itemDao.Delete(item.getId());
+                                    return  null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void aVoid) {
+                                    finish();
+                                }
+                            }.execute();
                         }
                     });
                 }

@@ -65,11 +65,13 @@ public class ItemDetailActivity extends AppCompatActivity {
                             item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
                             item.setId(Integer.parseInt(mItemIdET.getText().toString()));
 
-                            new AsyncTask<Void,Void,Void>(){
+                            new AsyncTask<Item,Void,Void>(){
 
                                 @Override
-                                protected Void doInBackground(Void... params) {
-                                 //  itemDao.Save(item);
+                                protected Void doInBackground(Item... params) {
+                                    Item i = params[0];
+                                    if(params[0] != null){}
+                                     // new ItemDaoImplJson().Save(params[0]);
                                   //  Toast.makeText(ItemDetailActivity.this,"DD",Toast.LENGTH_LONG).show();
                                     return null;
                                 }
@@ -78,7 +80,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                                 protected void onPostExecute(Void aVoid) {
                                     finish();
                                 }
-                            }.execute(); //for updating item
+                            }.execute(item); //for updating item
                         }
                     });
 

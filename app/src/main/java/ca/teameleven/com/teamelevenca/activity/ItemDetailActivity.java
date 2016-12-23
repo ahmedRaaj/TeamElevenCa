@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.dao.ItemDao;
 import ca.teameleven.com.teamelevenca.dao.ItemDaoImpl;
@@ -21,19 +23,20 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     Item item;
 
-    EditText mItemNameEditText,mItemDetailsEditText,mItemPriceEditText;
+    EditText mItemNameEditText,mItemDetailsEditText,mItemPriceEditText,mItemIdET;
     Button mModifyButton,mDeleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if(intent != null){
              mItemNameEditText = (EditText) findViewById(R.id.et_detail_name);
              mItemDetailsEditText = (EditText) findViewById(R.id.et_detail_description);
              mItemPriceEditText = (EditText) findViewById(R.id.et_detail_price);
-             mModifyButton = (Button) findViewById(R.id.btn_detail_modify);
+             mItemIdET = (EditText) findViewById(R.id.et_item_id);
+            mModifyButton = (Button) findViewById(R.id.btn_detail_modify);
              mDeleteButton = (Button) findViewById(R.id.btn_detail_delete);
              String itemId = intent.getStringExtra("itemId");
             //Toast.makeText(ItemDetailActivity.this,"id: "+itemId + " Real item id"+item.getId(), Toast.LENGTH_LONG).show();
@@ -41,7 +44,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             new AsyncTask<String, Void, Item>() {
                 @Override
                 protected Item doInBackground(String... params) {
-                    itemDao = new ItemDaoImplJson();
+                 ItemDaoImplJson   itemDao = new ItemDaoImplJson();
                     String itemId = params[0];
                     item =  itemDao.getItem(Integer.parseInt(itemId));
                     return  item;
@@ -52,6 +55,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     mItemDetailsEditText.setText(i.getItemDesc());
                     mItemNameEditText.setText(i.getItemName());
                     mItemPriceEditText.setText(String.valueOf(i.getPrice()));
+                    mItemIdET.setText(String.valueOf(i.getId()));
 
                     mModifyButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -59,7 +63,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                             item.setItemName(mItemNameEditText.getText().toString());
                             item.setItemDesc(mItemDetailsEditText.getText().toString());
                             item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
-                            itemDao.Save(item);
+                            item.setId(Integer.parseInt(mItemIdET.getText().toString()));
+                         //  itemDao.Save(item);
+                            finish();
                         }
                     });
                 }

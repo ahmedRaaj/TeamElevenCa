@@ -61,11 +61,12 @@ public class ItemActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         TextView idTv = (TextView)view.findViewById(R.id.tv_itemIdHidden);
                         int itemId = Integer.parseInt(idTv.getText().toString());
-                    //     Toast.makeText(ItemActivity.this,"Before id: "+itemId , Toast.LENGTH_SHORT).show();
+                     // Toast.makeText(ItemActivity.this,"Before id: "+itemId , Toast.LENGTH_SHORT).show();
 
                         Intent detailsIntent = new Intent(ItemActivity.this,ItemDetailActivity.class);
                         detailsIntent.putExtra("itemId",String.valueOf(itemId));
-                        startActivity(detailsIntent);
+
+                        startActivityForResult(detailsIntent,2);
                     }
                 });
 

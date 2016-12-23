@@ -17,4 +17,6 @@ public interface ItemDao {
     public void Save(Item item);
     public void Delete(int id);
     public List<Item> getAllItems(int categoryId);
+
+
 }

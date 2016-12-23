@@ -54,9 +54,26 @@ public class ItemDaoImplJson implements ItemDao {
     @Override
     public void Save(Item item) {
 
+        if(item.getId() > 0) { //update call. since has the id
+            StringBuilder builder = new StringBuilder();
+            builder.append("{").append("\"CategoryId\"").append(":").append("\"").append(item.getCategoryId()).append("\",");
+            builder.append("\"ItemsDetail\"").append(":").append("\"").append(item.getItemDesc()).append("\",");
+            builder.append("\"Name\"").append(":").append("\"").append("Testing Dummy").append("\",");
+            builder.append("\"Price\"").append(":").append("\"").append(item.getPrice()).append("\"");
+            builder.append("}");
 
+           JSONParser.postStream(URL+"/UpdateItems",builder.toString());
+        }
+        else{   //new creation call
+
+        }
 
     }
+
+    public  void Testing(String json){
+        JSONParser.postStream(URL+"/UpdateItems",json);
+    }
+
 
     @Override
     public void Delete(int id) {

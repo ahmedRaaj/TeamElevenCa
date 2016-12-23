@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import ca.teameleven.com.teamelevenca.R;
 import ca.teameleven.com.teamelevenca.dao.ItemDao;
@@ -69,9 +73,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                                 @Override
                                 protected Void doInBackground(Item... params) {
-                                    Item i = params[0];
-                                    if(params[0] != null){}
-                                     // new ItemDaoImplJson().Save(params[0]);
+                                    Item item = params[0];
+                                    new ItemDaoImplJson().Save(item);
                                   //  Toast.makeText(ItemDetailActivity.this,"DD",Toast.LENGTH_LONG).show();
                                     return null;
                                 }

@@ -64,7 +64,7 @@ public class ItemDaoImplJson implements ItemDao {
             builder.append("\"CategoryId\"").append(":").append("\"").append(item.getCategoryId()).append("\",");
             builder.append("\"Id\"").append(":").append("\"").append(item.getId()).append("\",");
             builder.append("\"ItemDetails\"").append(":").append("\"").append(item.getItemDesc()).append("\",");
-            builder.append("\"Name\"").append(":").append("\"").append(item.getItemDesc()).append("\",");
+            builder.append("\"Name\"").append(":").append("\"").append(item.getItemName()).append("\",");
             builder.append("\"Price\"").append(":").append("\"").append(item.getPrice()).append("\"");
             builder.append("}}");
             Logger.getLogger(this.getClass().getName()).log(Level.ALL,builder.toString());

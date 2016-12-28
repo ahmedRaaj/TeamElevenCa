@@ -1,12 +1,15 @@
 package ca.teameleven.com.teamelevenca.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,7 +30,7 @@ import ca.teameleven.com.teamelevenca.util.DummyData;
  * Created by ahmedraaj on 21/12/16.
  */
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity extends Activity {
     ListView mItemsListView;
     ItemDao itemDao ;
     public static String ITEMID;
@@ -75,6 +78,27 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent = new Intent(this,InsertActivity.class);
+        startActivity(intent);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.i("Loggingggg: ","came back");
+
+        super.onActivityResult(requestCode, resultCode, data);
+        recreate();
+    }
 }

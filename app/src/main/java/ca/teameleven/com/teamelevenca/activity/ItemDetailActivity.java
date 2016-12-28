@@ -1,5 +1,6 @@
 package ca.teameleven.com.teamelevenca.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import ca.teameleven.com.teamelevenca.dao.ItemDaoImpl;
 import ca.teameleven.com.teamelevenca.dao.ItemDaoImplJson;
 import ca.teameleven.com.teamelevenca.model.Item;
 
-public class ItemDetailActivity extends AppCompatActivity {
+public class ItemDetailActivity extends Activity {
     ItemDao itemDao ;
 
 
@@ -69,19 +70,22 @@ public class ItemDetailActivity extends AppCompatActivity {
                             item.setPrice(Double.parseDouble(mItemPriceEditText.getText().toString()));
                             item.setId(Integer.parseInt(mItemIdET.getText().toString()));
 
-                            new AsyncTask<Item,Void,Void>(){
+                            new AsyncTask<Item,Void,Item>(){
 
                                 @Override
-                                protected Void doInBackground(Item... params) {
+                                protected Item doInBackground(Item... params) {
                                     Item item = params[0];
                                     new ItemDaoImplJson().Save(item);
                                   //  Toast.makeText(ItemDetailActivity.this,"DD",Toast.LENGTH_LONG).show();
-                                    return null;
+                                    return item;
                                 }
 
                                 @Override
-                                protected void onPostExecute(Void aVoid) {
+                                protected void onPostExecute(Item item) {
                                     finish();
+//                                    Intent i = new Intent(ItemDetailActivity.this,ItemActivity.class);
+//                                    intent.putExtra(CategoryActivity.CATEGORYID,String.valueOf(item.getCategoryId()));
+//                                    startActivity(i);
                                 }
                             }.execute(item); //for updating item
                         }
